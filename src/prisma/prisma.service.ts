@@ -3,22 +3,21 @@ import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient{
-    constructor(config: ConfigService) {
-        super({
-            datasources: {
-                db: {
-                    url: config.get('DATABASE_URL'),
-                }
-            }
-        });
-    }
+export class PrismaService extends PrismaClient {
+  constructor(config: ConfigService) {
+    super({
+      datasources: {
+        db: {
+          url: config.get('DATABASE_URL'),
+        },
+      },
+    });
+  }
 
-    async cleanDB() {
-        return this.$transaction([
-            this.bookmark.deleteMany(),
-            this.user.deleteMany()
-        ])
-    }
+  cleanDb() {
+    return this.$transaction([
+      this.bookmark.deleteMany(),
+      this.user.deleteMany(),
+    ]);
+  }
 }
-
